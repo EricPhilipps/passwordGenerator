@@ -18,38 +18,51 @@ var includeNC;
 var includeUC;
 var includeLC;
 var passLength;
-var allowedInputs;
+var allowedInputs = true;
+var randomIndex;
 
 function generatePassword() {
-  let passLength = prompt("Please enter the length of your password (must be greater than 8)", [default_value]);
+  do {
+    do  {
+      let passLength = prompt("Please enter the length of your password (must be greater than 8)", [default_value]);
+      parseInt(passLength);
 
-  if (passLength < 8) {
-    alert("Please input a length greater than 8")
-  }
+      if (passLength < 8 || passLength > 129) {
+        alert("Please input a length of at least 8 and less than 130");
+        allowedInputs = false;
+      }
+    } while (!allowedInputs);
 
-  let includeSC = confirm("Would you like to include Special Characters?")
-  if (includeSC) {
-    // use random and add to passwordarray
-  }
+    let includeSC = confirm("Would you like to include Special Characters?");
+    if (includeSC) {
+      // use random and add to passwordarray
+    }
 
-  let includeNC = confirm("Would you like to include Numeric Characters?")
-  if (includeNC) {
-    // use random and add to passwordarray
-  }
+    let includeNC = confirm("Would you like to include Numeric Characters?");
+    if (includeNC) {
+     // use random and add to passwordarray
+    }
 
-  let includeUC = confirm("Would you like to include Uppercase Characters?")
-  if (includeUC) {
-    // use random and add to passwordarray
-  }
+    let includeUC = confirm("Would you like to include Uppercase Characters?");
+    if (includeUC) {
+     // use random and add to passwordarray
+    }
 
-  let includeLC = confirm("Would you like to include Lowercase Characters?")
-  if (includeLC) {
-    // use random and add to passwordarray
-  }
+    let includeLC = confirm("Would you like to include Lowercase Characters?");
+    if (includeLC) {
+      // use random and add to passwordarray
+    }
+
+    if (!includeSC && !includeNC && !includeUC && !includeLC) {
+      alert("You have selected no characters! Please select at least one.");
+      allowedInputs = false;
+    }
+  } while (!allowedInputs)
+  
 }
-
 function randomizer(array) {
-
+  var randIndex = getRandomInt(array.length);
+  return randIndex;
 }
 
 // Write password to the #password input
@@ -66,13 +79,13 @@ generateBtn.addEventListener("click", writePassword);
 
 
 // Create the variables to save user input
-  // booleans for whether to include each type of character
-    // Special Characters
-    // Numeric Characters
-    // Lowercase Characters
-    // Uppercase Characters
-    // alert, confirm, and prompt
-    // use conditionals to validate inputs
+  // booleans for whether to include each type of character X
+    // Special Characters X
+    // Numeric Characters X
+    // Lowercase Characters X
+    // Uppercase Characters X
+    // alert, confirm, and prompt X
+    // use conditionals to validate inputs 
       // password length, or no characters selected
 
   // password length string (but must be integer)
