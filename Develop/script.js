@@ -37,6 +37,8 @@ function generatePassword() {
         allowedInputs = false;
       }
     } while (!allowedInputs);
+    
+    console.log(passLength);
 
     let includeSC = confirm("Would you like to include Special Characters?");
     if (includeSC) {
@@ -79,13 +81,17 @@ function generatePassword() {
       allowedInputs = false;
     }
   } while (!allowedInputs);
+
   console.log("Hello?");
   console.log(includeLC, includeUC, includeSC, includeNC, passLength);
 
   for (var i = 0; i < passLength; i++) {
     var whichType = randomizer(multiDArray.length);
+
     console.log(whichType);
+
     finalPassArray[i] = randomizer(multiDArray[whichType].length);
+
     console.log(finalPassArray[i]);
   }
 
@@ -96,7 +102,9 @@ function generatePassword() {
 
 function randomizer(array) {
   var randIndex = Math.random() * (array.length - 0) + 0;
+
   console.log(randIndex);
+
   return randIndex;
 }
 
