@@ -24,6 +24,8 @@ var randomIndex;
 function generatePassword() {
   do {
     do  {
+      var multiDArray = []
+      var multiIndex = 0;
       let passLength = prompt("Please enter the length of your password (must be greater than 8)", [default_value]);
       parseInt(passLength);
 
@@ -35,22 +37,26 @@ function generatePassword() {
 
     let includeSC = confirm("Would you like to include Special Characters?");
     if (includeSC) {
-      // use random and add to passwordarray
+      multiDArray[multiIndex] = specialChar;
+      multiIndex++;
     }
 
     let includeNC = confirm("Would you like to include Numeric Characters?");
     if (includeNC) {
-     // use random and add to passwordarray
+      multiDArray[multiIndex] = numericChar;
+      multiIndex++;
     }
 
     let includeUC = confirm("Would you like to include Uppercase Characters?");
     if (includeUC) {
-     // use random and add to passwordarray
+      multiDArray[multiIndex] = upperChar;
+      multiIndex++;
     }
 
     let includeLC = confirm("Would you like to include Lowercase Characters?");
     if (includeLC) {
-      // use random and add to passwordarray
+      multiDArray[multiIndex] = lowerChar;
+      multiIndex++;
     }
 
     if (!includeSC && !includeNC && !includeUC && !includeLC) {
