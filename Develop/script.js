@@ -13,11 +13,11 @@ var upperChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 var lowerChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
-var includeSC;
-var includeNC;
-var includeUC;
-var includeLC;
-var passLength;
+var includeSC = true;
+var includeNC = true;
+var includeUC = true;
+var includeLC = true;
+var passLength = 0;
 var allowedInputs = true;
 var randomIndex;
 
@@ -26,10 +26,11 @@ function generatePassword() {
   var finalPassword = "";
   do {
     do  {
-      var multiDArray = []
+      allowedInputs = true;
+      var multiDArray = [];
       var multiIndex = 0;
       let passLength = prompt("Please enter the length of your password (must be greater than 8)");
-      parseInt(passLength);
+      passLength = parseInt(passLength);
 
       if (passLength < 8 || passLength > 129) {
         alert("Please input a length of at least 8 and less than 130");
@@ -42,11 +43,17 @@ function generatePassword() {
       multiDArray[multiIndex] = specialChar;
       multiIndex++;
     }
+    else {
+      includeSC = false;
+    }
 
     let includeNC = confirm("Would you like to include Numeric Characters?");
     if (includeNC) {
       multiDArray[multiIndex] = numericChar;
       multiIndex++;
+    }
+    else {
+      includeNC = false;
     }
 
     let includeUC = confirm("Would you like to include Uppercase Characters?");
@@ -54,22 +61,32 @@ function generatePassword() {
       multiDArray[multiIndex] = upperChar;
       multiIndex++;
     }
+    else {
+      includeUC = false;
+    }
 
     let includeLC = confirm("Would you like to include Lowercase Characters?");
     if (includeLC) {
       multiDArray[multiIndex] = lowerChar;
       multiIndex++;
     }
+    else {
+      includeLC = false
+    }
 
     if (!includeSC && !includeNC && !includeUC && !includeLC) {
       alert("You have selected no characters! Please select at least one.");
       allowedInputs = false;
     }
-  } while (!allowedInputs)
-  
+  } while (!allowedInputs);
+  console.log("Hello?");
+  console.log(includeLC, includeUC, includeSC, includeNC, passLength);
+
   for (var i = 0; i < passLength; i++) {
     var whichType = randomizer(multiDArray.length);
+    console.log(whichType);
     finalPassArray[i] = randomizer(multiDArray[whichType].length);
+    console.log(finalPassArray[i]);
   }
 
   finalPassword = finalPassArray.join('');
@@ -78,7 +95,8 @@ function generatePassword() {
 }
 
 function randomizer(array) {
-  var randIndex = getRandomInt(array.length);
+  var randIndex = Math.random() * (array.length - 0) + 0;
+  console.log(randIndex);
   return randIndex;
 }
 
