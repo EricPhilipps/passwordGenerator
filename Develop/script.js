@@ -17,12 +17,38 @@ var includeSC;
 var includeNC;
 var includeUC;
 var includeLC;
+var passLength;
+var allowedInputs;
 
 function generatePassword() {
-  
+  let passLength = prompt("Please enter the length of your password (must be greater than 8)", [default_value]);
+
+  if (passLength < 8) {
+    alert("Please input a length greater than 8")
+  }
+
+  let includeSC = confirm("Would you like to include Special Characters?")
+  if (includeSC) {
+    // use random and add to passwordarray
+  }
+
+  let includeNC = confirm("Would you like to include Numeric Characters?")
+  if (includeNC) {
+    // use random and add to passwordarray
+  }
+
+  let includeUC = confirm("Would you like to include Uppercase Characters?")
+  if (includeUC) {
+    // use random and add to passwordarray
+  }
+
+  let includeLC = confirm("Would you like to include Lowercase Characters?")
+  if (includeLC) {
+    // use random and add to passwordarray
+  }
 }
 
-function randomizer() {
+function randomizer(array) {
 
 }
 
