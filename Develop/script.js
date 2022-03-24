@@ -22,11 +22,13 @@ var allowedInputs = true;
 var randomIndex;
 
 function generatePassword() {
+  var finalPassArray = [];
+  var finalPassword = "";
   do {
     do  {
       var multiDArray = []
       var multiIndex = 0;
-      let passLength = prompt("Please enter the length of your password (must be greater than 8)", [default_value]);
+      let passLength = prompt("Please enter the length of your password (must be greater than 8)");
       parseInt(passLength);
 
       if (passLength < 8 || passLength > 129) {
@@ -65,7 +67,16 @@ function generatePassword() {
     }
   } while (!allowedInputs)
   
+  for (var i = 0; i < passLength; i++) {
+    var whichType = randomizer(multiDArray.length);
+    finalPassArray[i] = randomizer(multiDArray[whichType].length);
+  }
+
+  finalPassword = finalPassArray.join('');
+  
+  return finalPassword;
 }
+
 function randomizer(array) {
   var randIndex = getRandomInt(array.length);
   return randIndex;
