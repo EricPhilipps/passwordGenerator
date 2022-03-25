@@ -1,6 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// character arrays
 // missing \, " because messed with string notation
 var specialChar = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", ">",
   "=", "?", "@", "[", "]", "^", "_", "`", "{", "}", "~"];
@@ -13,6 +14,7 @@ var upperChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 var lowerChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
+// all of the global variables needed for functions
 var includeSC = true;
 var includeNC = true;
 var includeUC = true;
@@ -22,8 +24,11 @@ var allowedInputs = true;
 var randomIndex;
 
 function generatePassword() {
+  // final password array and final password string used at the end of generatePassword
   var finalPassArray = [];
   var finalPassword = "";
+
+  // do while loops to return to beginning if incorrect input is input
   do {
     do  {
       allowedInputs = true;
@@ -31,24 +36,20 @@ function generatePassword() {
       var multiIndex = 0;
       passLength = prompt("Please enter the length of your password (must be greater than 8)");
       passLength = parseInt(passLength);
-      
-      console.log(passLength);
-
+    
       if (passLength < 8 || passLength > 129) {
         alert("Please input a length of at least 8 and less than 130");
         allowedInputs = false;
       }
     } while (!allowedInputs);
     
-    console.log(passLength);
+    //console.log(passLength);
 
+    // using confirm to see what characters we would use
     includeSC = confirm("Would you like to include Special Characters?");
     if (includeSC) {
       multiDArray[multiIndex] = specialChar;
       multiIndex++;
-    }
-    else {
-      includeSC = false;
     }
 
     includeNC = confirm("Would you like to include Numeric Characters?");
@@ -56,26 +57,17 @@ function generatePassword() {
       multiDArray[multiIndex] = numericChar;
       multiIndex++;
     }
-    else {
-      includeNC = false;
-    }
-
+    
     includeUC = confirm("Would you like to include Uppercase Characters?");
     if (includeUC) {
       multiDArray[multiIndex] = upperChar;
       multiIndex++;
     }
-    else {
-      includeUC = false;
-    }
-
+    
     includeLC = confirm("Would you like to include Lowercase Characters?");
     if (includeLC) {
       multiDArray[multiIndex] = lowerChar;
       multiIndex++;
-    }
-    else {
-      includeLC = false
     }
 
     if (!includeSC && !includeNC && !includeUC && !includeLC) {
@@ -84,25 +76,39 @@ function generatePassword() {
     }
   } while (!allowedInputs);
 
+  // testing to see what I was getting
   // console.log("Hello?");
   // console.log(includeLC, includeUC, includeSC, includeNC, passLength);
   // console.log(multiDArray);
 
+
+  // Tried to implement a multidimensional array because that was the only way
+  // I could think to solve this part. Not sure what the problem is.
+  // thought process was to have each character array used in an array of the types 
+  // that were going to be used. Find a random array to go into with randomize to find what type of character
+  // was chosen, then go through that array with randomize to choose a random character
+  // then take that and add it to the final password array.
   for (var i = 0; i < passLength; i++) {
+    //console.log(passLength);
+    var arrayIndex;
     var whichType = randomizer(multiDArray);
 
-    finalPassArray[i] = randomizer(multiDArray[whichType]);
+    arrayIndex = randomizer(multiDArray[whichType]);
+    finalPassArray[i] = multiDArray[whichType[arrayIndex]];
+
   }
 
+  // join the array togther to make a string
   finalPassword = finalPassArray.join('');
   
+  // return the final string to pass it to write password
   return finalPassword;
 }
 
-function randomizer(array) {
-  var randIndex = Math.floor(Math.random() * (array.length - 0) + 0);
+function randomizer(arraylength) {
+  var randIndex = Math.floor(Math.random() * (arraylength - 0) + 0);
 
-  console.log(randIndex);
+  //console.log(randIndex);
 
   return randIndex;
 }
