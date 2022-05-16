@@ -2,9 +2,8 @@
 var generateBtn = document.querySelector("#generate");
 
 // character arrays
-// missing \, " because messed with string notation
 var specialChar = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", ">",
-  "=", "?", "@", "[", "]", "^", "_", "`", "{", "}", "~"];
+  "=", "?", "@", "[", "]", "^", "_", "`", "{", "}", "~", '"'];
 
 var numericChar = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
@@ -35,66 +34,65 @@ function generatePassword() {
       var multiDArray = [];
       var multiIndex = 0;
       passLength = prompt("Please enter the length of your password (must be greater than 8)");
+
+      if (passLength === "") {
+        alert("Please input a length of at least 8 and less than 130");
+        allowedInputs = false;
+      }
+      
       passLength = parseInt(passLength);
     
-      if (passLength < 8 || passLength > 129) {
+      if (passLength < 8 || passLength > 129 || passLength === "") {
         alert("Please input a length of at least 8 and less than 130");
         allowedInputs = false;
       }
     } while (!allowedInputs);
-    
-    //console.log(passLength);
 
-    // using confirm to see what characters we would use
+    // using confirm to see what characters we would use, when yes array added to multidimensional array
     includeSC = confirm("Would you like to include Special Characters?");
     if (includeSC) {
       multiDArray[multiIndex] = specialChar;
       multiIndex++;
+      console.log(multiDArray);
     }
 
     includeNC = confirm("Would you like to include Numeric Characters?");
     if (includeNC) {
       multiDArray[multiIndex] = numericChar;
       multiIndex++;
+      console.log(multiDArray);
     }
     
     includeUC = confirm("Would you like to include Uppercase Characters?");
     if (includeUC) {
       multiDArray[multiIndex] = upperChar;
       multiIndex++;
+      console.log(multiDArray);
     }
     
     includeLC = confirm("Would you like to include Lowercase Characters?");
     if (includeLC) {
       multiDArray[multiIndex] = lowerChar;
       multiIndex++;
+      console.log(multiDArray);
     }
 
     if (!includeSC && !includeNC && !includeUC && !includeLC) {
       alert("You have selected no characters! Please select at least one.");
       allowedInputs = false;
     }
+    else {
+      allowedInputs = true;
+    }
   } while (!allowedInputs);
 
-  // testing to see what I was getting
-  // console.log("Hello?");
-  // console.log(includeLC, includeUC, includeSC, includeNC, passLength);
-  // console.log(multiDArray);
-
-
-  // Tried to implement a multidimensional array because that was the only way
-  // I could think to solve this part. Not sure what the problem is.
-  // thought process was to have each character array used in an array of the types 
-  // that were going to be used. Find a random array to go into with randomize to find what type of character
-  // was chosen, then go through that array with randomize to choose a random character
-  // then take that and add it to the final password array.
+  // For loop to create an array with the random characters from the multidimensional array
   for (var i = 0; i < passLength; i++) {
-    //console.log(passLength);
     var arrayIndex;
-    var whichType = randomizer(multiDArray);
+    var whichType = randomizer(multiDArray.length);
 
-    arrayIndex = randomizer(multiDArray[whichType]);
-    finalPassArray[i] = multiDArray[whichType[arrayIndex]];
+    arrayIndex = randomizer(multiDArray[whichType].length);
+    finalPassArray[i] = multiDArray[whichType][arrayIndex];
 
   }
 
@@ -106,7 +104,7 @@ function generatePassword() {
 }
 
 function randomizer(arraylength) {
-  var randIndex = Math.floor(Math.random() * (arraylength - 0) + 0);
+  var randIndex = Math.floor(Math.random() * (arraylength));
 
   //console.log(randIndex);
 
@@ -124,28 +122,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-// Create the variables to save user input
-  // booleans for whether to include each type of character X
-    // Special Characters X
-    // Numeric Characters X
-    // Lowercase Characters X
-    // Uppercase Characters X
-    // alert, confirm, and prompt X
-    // use conditionals to validate inputs 
-      // password length, or no characters selected
-
-  // password length string (but must be integer)
-
-// Make an array for each type of character
-  // Special, numeric, lowercase, uppercase characters
-
-// generatePassword function -- take user input and grab characters
-// from array and generate password
-
-// Use random function to take random characters from each array chosen by user
-
-// create an empty array to become the final password and randomize
-  // then use a for loop to convert the arrray into a string
-
